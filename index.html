@@ -143,7 +143,52 @@ const masterList = [
     { name: "Skynode", ram: 1.5, storage: "5 GB", cpu: "Intel Xeon Gold", power: 2 },
     { name: "Freemc.host", ram: 2.0, storage: "10 GB", cpu: "AMD Ryzen 5 3600", power: 2 },
     { name: "LokaHosting", ram: 2.0, storage: "10 GB", cpu: "Intel i7-6700K", power: 2 },
-    { name: "Server.pro (Free)", ram: 1.0, storage: "5 GB", cpu: "AMD EPYC 7351P", power: 2 }
+    { name: "Server.pro", ram: 1.0, storage: "5 GB", cpu: "AMD EPYC 7351P", power: 2 },
+    { name: "Playtime Hosting", ram: 4.0, storage: "10 GB", cpu: "AMD Ryzen 9 5950X", power: 4 },
+    { name: "Blockhead Host", ram: 4.0, storage: "15 GB", cpu: "Intel i9-13900K", power: 5 },
+    { name: "Cozy MC", ram: 6.0, storage: "20 GB", cpu: "AMD Ryzen Shared", power: 3 },
+    { name: "Novacore", ram: 2.0, storage: "10 GB", cpu: "Shared Ryzen Node", power: 3 },
+    { name: "StormNodes", ram: 2.0, storage: "5 GB", cpu: "Ryzen 9 5950X", power: 4 },
+
+    // --- UTILITY & AUTO-BOOT HOSTS ---
+    { name: "MCServerHost (Villager)", ram: 3.0, storage: "10 GB", cpu: "Intel Multi-Core Standard", power: 2 },
+    { name: "CreeperCloud", ram: 2.0, storage: "2 GB", cpu: "AMD EPYC 7401P", power: 2 },
+    { name: "Nether.Host", ram: 2.0, storage: "10 GB", cpu: "AMD Ryzen 3 3300X", power: 2 },
+    { name: "SliceHosting", ram: 4.0, storage: "8 GB", cpu: "AMD Ryzen 9 3900", power: 4 },
+    { name: "FPS.ms", ram: 4.0, storage: "5 GB", cpu: "Intel i9-9900K", power: 4 },
+
+    // --- LIGHTWEIGHT & RELIABLE ---
+    { name: "ServerTux", ram: 1.0, storage: "30 GB", cpu: "AMD Ryzen 5950X", power: 4 },
+    { name: "DataHosting", ram: 1.0, storage: "1 GB", cpu: "Intel Xeon E5-2670", power: 1 },
+    { name: "ScarceHosting", ram: 1.5, storage: "2 GB", cpu: "Intel Shared", power: 1 },
+    { name: "EUGameHosting", ram: 2.0, storage: "Unlimited", cpu: "Intel i9-13900K", power: 5 },
+
+    // --- NICHE / REGIONAL ---
+    { name: "GratisServer.nu", ram: 1.5, storage: "5 GB", cpu: "AMD Ryzen 9 7950X3D", power: 5 },
+    { name: "Zoned.rip", ram: 4.0, storage: "10 GB", cpu: "Shared Cloud Node", power: 3 },
+    { name: "Attoric", ram: 1.0, storage: "5 GB", cpu: "AMD Ryzen 7000 Series", power: 4 },
+    { name: "Campfire (Credit Based)", ram: 2.0, storage: "10 GB", cpu: "Intel i7-10700K", power: 3 },
+    // --- SELF-HOSTING MODS (Runs inside Minecraft) ---
+    { name: "e4mc (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 5 },
+    { name: "Essential Mod (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 5 },
+    { name: "World Host (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 4 },
+    { name: "Minekube Connect (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 5 },
+    { name: "Luna (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 3 },
+    { name: "Feather Launcher (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 4 },
+    { name: "LabyMod Share (SELF HOSTING MOD)", ram: "User RAM", storage: "Local", cpu: "User CPU", power: 3 },
+
+    // --- TUNNELING TOOLS (No Port-Forwarding Needed) ---
+    { name: "Playit.gg (SELF HOSTING TOOL)", ram: "Minimal", storage: "N/A", cpu: "Tunnel", power: 5 },
+    { name: "Pinggy (SELF HOSTING TOOL)", ram: "Minimal", storage: "N/A", cpu: "TCP Tunnel", power: 4 },
+    { name: "Ngrok (SELF HOSTING TOOL)", ram: "Minimal", storage: "N/A", cpu: "TCP Tunnel", power: 4 },
+    { name: "Portmap.io (SELF HOSTING TOOL)", ram: "Minimal", storage: "N/A", cpu: "OpenVPN", power: 3 },
+    { name: "LocalXpose (SELF HOSTING TOOL)", ram: "Minimal", storage: "N/A", cpu: "Reverse Proxy", power: 4 },
+
+    // --- VIRTUAL LAN (Private Network for Friends) ---
+    { name: "Tailscale (SELF HOSTING TOOL)", ram: "Light", storage: "N/A", cpu: "P2P Mesh", power: 5 },
+    { name: "ZeroTier One (SELF HOSTING TOOL)", ram: "Light", storage: "N/A", cpu: "Virtual Eth", power: 5 },
+    { name: "Radmin VPN (SELF HOSTING TOOL)", ram: "Medium", storage: "N/A", cpu: "Virtual LAN", power: 4 },
+    { name: "Hamachi (SELF HOSTING TOOL)", ram: "Medium", storage: "N/A", cpu: "Virtual LAN", power: 2 }
 ];
 
 function render(data) {
