@@ -65,6 +65,70 @@
             position: absolute; top: 15px; right: 15px; font-size: 0.65rem;
             padding: 4px 8px; border-radius: 4px; background: #333; color: #aaa;
         }
+        .ntrxi-footer {
+            background: #0a0a0a;
+            border-top: 1px solid #222;
+            padding: 60px 20px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-logo {
+            color: var(--accent);
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #1a1a1a;
+            color: #555;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
@@ -231,5 +295,31 @@ function sortData(criteria) {
 
 window.onload = () => render(masterList);
 </script>
+    <footer class="ntrxi-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h2 class="footer-logo">NTRXI</h2>
+            <p>Indexing the best permanent free Minecraft hosting solutions since 2024.</p>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</a></li>
+                <li><a href="https://discord.com/invite/b67X2Gdkw7" target="_blank">Discord Support</a></li>
+                <li><a href="https://minecraft.net" target="_blank">Minecraft Official</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Disclaimer</h4>
+            <p>NTRXI is not affiliated with Mojang AB or any hosting provider listed. Use these services at your own risk.</p>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        &copy; 2026 NTRXI Index. All rights reserved.
+    </div>
+</footer>
 </body>
 </html>
