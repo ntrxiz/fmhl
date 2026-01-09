@@ -13,6 +13,7 @@
             --accent: #00a8ff;      /* Electric Blue */
             --accent-glow: #0097e6;
             --text: #f5f6fa;
+            --nav-bg: rgba(10, 11, 16, 0.8);
         }
 
         body { 
@@ -20,51 +21,72 @@
             color: var(--text); 
             font-family: 'Segoe UI', sans-serif; 
             margin: 0; 
-            padding: 20px; 
+            padding: 0; /* Reset padding for full-width nav */
             overflow-x: hidden;
+            padding-top: 80px; /* Space for fixed navbar */
         }
 
-        /* --- HEADER STYLES (Restored) --- */
-        header { text-align: center; padding: 40px 20px; }
-        
-        .ntrxi-brand { 
-            color: #fff; 
-            font-size: 4rem; 
-            font-weight: 900; 
-            margin: 0; 
-            letter-spacing: -2px; 
-            cursor: default; 
+        /* --- 1. SHARED HEADER (NAVBAR) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 168, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
             text-transform: uppercase;
+            letter-spacing: -1px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .nav-brand:hover { text-shadow: 0 0 10px var(--accent-glow); }
 
-            /* Hitbox & Jitter Fix */
-            display: inline-block;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
-            will-change: transform; 
-            backface-visibility: hidden; 
-            transform: translateZ(0);
+        .nav-links { display: flex; gap: 30px; }
+        
+        .nav-links a {
+            color: #7f8fa6;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.3s;
         }
 
-        .ntrxi-brand:hover {
-            transform: scale(1.05) translateZ(0);
-            text-shadow: 
-                0 0 15px var(--accent),
-                0 0 30px var(--accent),
-                0 0 60px var(--accent-glow);
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text);
+            text-shadow: 0 0 8px rgba(0, 168, 255, 0.4);
         }
 
-        .discord-btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background-color: #5865F2; color: white; padding: 12px 24px;
-            border-radius: 8px; text-decoration: none; font-weight: 600;
-            transition: 0.3s; margin-top: 15px;
+        /* --- 2. HERO BANNER (SAVED IN MEMORY - HIDDEN) --- */
+        /*
+        .hero-banner { text-align: center; padding: 60px 20px 40px; }
+        .hero-title { 
+            font-size: 3.5rem; font-weight: 900; color: #fff; margin: 0;
+            text-transform: uppercase; letter-spacing: -2px;
         }
-        .discord-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4); }
+        .hero-subtitle { color: #7f8fa6; margin-top: 10px; font-size: 1.1rem; }
+        */
 
-        /* CONTROLS */
+        /* --- CONTROLS --- */
         .controls-wrapper { 
             max-width: 1000px; 
-            margin: 0 auto 40px; 
+            margin: 40px auto 40px; 
             text-align: center; 
+            padding: 0 20px;
         }
         .control-group { margin-bottom: 20px; }
         .label-text { display: block; margin-bottom: 10px; color: #7f8fa6; font-size: 0.8rem; text-transform: uppercase; }
@@ -77,8 +99,15 @@
         .sort-btn:hover { border-color: var(--accent); }
         .sort-btn.active { background: var(--accent); color: white; border-color: var(--accent); font-weight: bold; box-shadow: 0 0 15px rgba(0, 168, 255, 0.3); }
 
-        /* GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto 60px; }
+        /* --- GRID --- */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 0 auto 80px; 
+            padding: 0 20px;
+        }
         
         .host-card { 
             background: var(--card-bg); 
@@ -106,18 +135,32 @@
             padding: 4px 8px; border-radius: 4px; background: #2f3640; color: #dfe6e9;
         }
 
-        /* --- FOOTER STYLES SAVED IN MEMORY ---
-           (Commented out below in HTML)
-        */
+        /* --- 3. SHARED FOOTER --- */
+        footer {
+            background: #050507;
+            border-top: 1px solid #1e272e;
+            padding: 40px 20px;
+            text-align: center;
+            color: #57606f;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { color: #7f8fa6; text-decoration: none; margin: 0 15px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1 class="ntrxi-brand">NTRXI</h1>
-        <p>Ultimate Free Hosting & Self-Host Index</p>
-        <a href="https://discord.com/invite/b67X2Gdkw7" target="_blank" class="discord-btn">Join Discord</a>
-    </header>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">NTRXI</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="mcskins.html">Skins</a>
+            <a href="totem.html">Totem</a>
+            <a href="hosting.html" class="active">Hosting</a>
+        </div>
+    </nav>
 
     <div class="controls-wrapper">
         <div class="control-group">
@@ -141,8 +184,8 @@
 
     <div id="host-list" class="grid"></div>
 
-<script>
-// --- PASTE YOUR HOSTING LIST HERE ---
+    <script>
+    // --- PASTE YOUR HOSTING LIST HERE ---
 const masterList = [
 
     // --- WEB HOSTING (Category: web) ---
@@ -317,56 +360,63 @@ const masterList = [
 
 ];
 
-let currentFilter = 'all';
+    let currentFilter = 'all';
 
-function render(data) {
-    const list = document.getElementById("host-list");
-    if (!data || data.length === 0) {
-        list.innerHTML = '<p style="text-align:center; width:100%; color: #7f8fa6;">List is empty. Paste data in script.</p>';
-        return;
+    function render(data) {
+        const list = document.getElementById("host-list");
+        if (!data || data.length === 0) {
+            list.innerHTML = '<p style="text-align:center; width:100%; color: #7f8fa6;">List is empty. Paste data in script.</p>';
+            return;
+        }
+
+        list.innerHTML = data
+            .filter(h => currentFilter === 'all' || h.type === currentFilter)
+            .map(h => `
+            <div class="host-card">
+                <span class="category-badge">${h.type === 'web' ? 'WEB' : 'MOD'}</span>
+                <h3>${h.name}</h3>
+                <div class="spec"><label>RAM</label><span>${h.displayRam ? h.displayRam : h.ram + ' GB'}</span></div>
+                <div class="spec"><label>Storage</label><span>${h.storage}</span></div>
+                <span class="cpu-tag">${h.cpu}</span>
+            </div>
+        `).join('');
     }
 
-    list.innerHTML = data
-        .filter(h => currentFilter === 'all' || h.type === currentFilter)
-        .map(h => `
-        <div class="host-card">
-            <span class="category-badge">${h.type === 'web' ? 'WEB' : 'MOD'}</span>
-            <h3>${h.name}</h3>
-            <div class="spec"><label>RAM</label><span>${h.displayRam ? h.displayRam : h.ram + ' GB'}</span></div>
-            <div class="spec"><label>Storage</label><span>${h.storage}</span></div>
-            <span class="cpu-tag">${h.cpu}</span>
+    function filterType(type) {
+        currentFilter = type;
+        event.currentTarget.parentElement.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        render(masterList);
+    }
+
+    function sortData(criteria) {
+        let sorted = [...masterList];
+        
+        if (criteria === 'ram-desc') {
+            sorted.sort((a, b) => b.ram - a.ram);
+        } else if (criteria === 'ram-asc') {
+            sorted.sort((a, b) => a.ram - b.ram);
+        } else if (criteria === 'name') {
+            sorted.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
+        event.currentTarget.parentElement.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        
+        render(sorted);
+    }
+
+    window.onload = () => render(masterList);
+    </script>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://discord.com/invite/b67X2Gdkw7" target="_blank">Discord</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
         </div>
-    `).join('');
-}
-
-function filterType(type) {
-    currentFilter = type;
-    event.currentTarget.parentElement.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    render(masterList);
-}
-
-function sortData(criteria) {
-    let sorted = [...masterList];
-    
-    if (criteria === 'ram-desc') {
-        sorted.sort((a, b) => b.ram - a.ram);
-    } else if (criteria === 'ram-asc') {
-        sorted.sort((a, b) => a.ram - b.ram);
-    } else if (criteria === 'name') {
-        sorted.sort((a, b) => a.name.localeCompare(b.name));
-    }
-    
-    event.currentTarget.parentElement.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    
-    render(sorted);
-}
-
-window.onload = () => render(masterList);
-</script>
+        &copy; 2026 NTRXI Index. All rights reserved.
+    </footer>
 
 </body>
 </html>
-
-
