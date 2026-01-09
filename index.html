@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTRXI - The Ultimate Minecraft Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --accent: #55efc4;
+            --secondary: #a29bfe;
+            --text: #e0e0e0;
+            --twitch: #9146FF;
+            --youtube: #FF0000;
+            --discord: #5865F2;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(circle at center, #252525 0%, #0f0f0f 70%);
+            border-bottom: 1px solid #222;
+        }
+
+        .brand-logo {
+            font-size: 5rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -3px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        /* --- TOOLS GRID --- */
+        .tools-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(85, 239, 196, 0.1);
+        }
+
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .tool-card h3 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+        }
+
+        .tool-card p {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .arrow {
+            margin-top: 20px;
+            font-weight: bold;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: 0.3s;
+        }
+
+        .tool-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* --- SOCIALS SECTION --- */
+        .socials-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: #141414;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-btn i { font-size: 1.4rem; }
+
+        .btn-yt { background: rgba(255, 0, 0, 0.1); color: #ff4d4d; border-color: rgba(255, 0, 0, 0.3); }
+        .btn-yt:hover { background: var(--youtube); color: white; transform: translateY(-3px); }
+
+        .btn-twitch { background: rgba(145, 70, 255, 0.1); color: #be8cff; border-color: rgba(145, 70, 255, 0.3); }
+        .btn-twitch:hover { background: var(--twitch); color: white; transform: translateY(-3px); }
+
+        .btn-discord { background: rgba(88, 101, 242, 0.1); color: #8ea1ff; border-color: rgba(88, 101, 242, 0.3); }
+        .btn-discord:hover { background: var(--discord); color: white; transform: translateY(-3px); }
+
+
+        /* --- FOOTER --- */
+        footer {
+            background: #0a0a0a;
+            border-top: 1px solid #222;
+            padding: 40px 20px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
+
+        .copyright {
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1 class="brand-logo">NTRXI</h1>
+        <p>The ultimate toolkit for Minecraft players and server owners. <br>Hosting, Skins, and Utilities in one place.</p>
+    </div>
+
+    <div class="tools-container">
+        
+        <a href="hosting.html" class="tool-card">
+            <i class="fas fa-server tool-icon"></i>
+            <h3>Free Hosting Index</h3>
+            <p>A curated database of 20+ permanent free Minecraft server hosts (Web & Self-Host).</p>
+            <div class="arrow">Launch Tool <i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="skins.html" class="tool-card">
+            <i class="fas fa-user-astronaut tool-icon"></i>
+            <h3>Skin & Name Search</h3>
+            <p>Check username availability, view 3D renders, and download skins instantly.</p>
+            <div class="arrow">Launch Tool <i class="fas fa-arrow-right"></i></div>
+        </a>
+
+        <a href="totem.html" class="tool-card">
+            <i class="fas fa-magic tool-icon"></i>
+            <h3>Totem Converter</h3>
+            <p>Generate a custom "Totem of Undying" resource pack from any player's skin.</p>
+            <div class="arrow">Launch Tool <i class="fas fa-arrow-right"></i></div>
+        </a>
+
+    </div>
+
+    <div class="socials-section">
+        <h2 class="section-title">Join the Community</h2>
+        <div class="social-grid">
+            <a href="https://www.youtube.com/@ntrxi/" target="_blank" class="social-btn btn-yt">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="https://www.twitch.tv/ntrxi/" target="_blank" class="social-btn btn-twitch">
+                <i class="fab fa-twitch"></i> Twitch
+            </a>
+            <a href="http://discord.gg/b67X2Gdkw7/" target="_blank" class="social-btn btn-discord">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="hosting.html">Hosting</a>
+            <a href="skins.html">Skins</a>
+            <a href="totem.html">Totems</a>
+            <a href="http://discord.gg/b67X2Gdkw7/" target="_blank">Support</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 NTRXI. All rights reserved. Not affiliated with Mojang AB.
+        </div>
+    </footer>
+
+</body>
+</html>
