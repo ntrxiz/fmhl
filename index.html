@@ -29,6 +29,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden; /* Prevents scrollbar jumping during zoom */
         }
 
         /* --- HERO SECTION --- */
@@ -49,13 +50,19 @@
             color: #fff;
             cursor: default;
             
-            /* Smooth transition for the pop effect */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* FIX 1: TIGHTEN HITBOX */
+            display: inline-block; 
+            
+            /* FIX 2: SMOOTH ANIMATION */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0); /* Hardware acceleration */
         }
 
         /* THE POP & GLOW (ONLY ON HOVER) */
         .brand-logo:hover {
-            transform: scale(1.1); /* The Pop */
+            transform: scale(1.1) translateZ(0); /* The Pop */
             text-shadow: 
                 0 0 15px var(--accent),
                 0 0 30px var(--accent),
@@ -94,6 +101,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: block;
         }
 
         .tool-card:hover {
@@ -223,14 +231,14 @@
             <div class="arrow">Launch Tool <i class="fas fa-arrow-right"></i></div>
         </a>
 
-        <a href="mcskins.html" class="tool-card">
+        <a href="skins.html" class="tool-card">
             <i class="fas fa-user-astronaut tool-icon"></i>
             <h3>Skin & Name Search</h3>
             <p>Check username availability, view 3D renders, and download skins.</p>
             <div class="arrow">Launch Tool <i class="fas fa-arrow-right"></i></div>
         </a>
 
-        <a href="mctotem.html" class="tool-card">
+        <a href="totem.html" class="tool-card">
             <i class="fas fa-magic tool-icon"></i>
             <h3>Totem Converter</h3>
             <p>Generate a custom "Totem of Undying" pack from any skin.</p>
@@ -257,9 +265,9 @@
     <footer>
         <div class="footer-links">
             <a href="hosting.html">Hosting</a>
-            <a href="skins.html">Skins</a>
-            <a href="totem.html">Totems</a>
-            <a href="http://discord.gg/b67X2Gdkw7/" target="_blank">Support</a>
+            <a href="mcskins.html">Skins</a>
+            <a href="mctotem.html">Totems</a>
+            <a href="https://discord.com/invite/b67X2Gdkw7/" target="_blank">Support</a>
         </div>
         <div class="copyright">
             &copy; 2026 NTRXI. All rights reserved. Not affiliated with Mojang AB.
