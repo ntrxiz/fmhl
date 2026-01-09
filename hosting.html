@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { 
-            /* --- UPDATED TO MATCH INDEX (NEON BLUE) --- */
+            /* --- NEON BLUE THEME --- */
             --bg: #0a0b10;
             --card-bg: #13151b;
             --accent: #00a8ff;      /* Electric Blue */
@@ -21,22 +21,36 @@
             font-family: 'Segoe UI', sans-serif; 
             margin: 0; 
             padding: 20px; 
+            overflow-x: hidden;
         }
 
-        /* --- SAVED BANNER STYLES (Hidden for now) --- */
-        /* header { text-align: center; padding: 40px 20px; }
+        /* --- HEADER STYLES (Restored) --- */
+        header { text-align: center; padding: 40px 20px; }
+        
         .ntrxi-brand { 
-            color: var(--accent); font-size: 4rem; font-weight: 900; margin: 0; 
-            letter-spacing: -2px; cursor: default; text-transform: uppercase;
+            color: #fff; 
+            font-size: 4rem; 
+            font-weight: 900; 
+            margin: 0; 
+            letter-spacing: -2px; 
+            cursor: default; 
+            text-transform: uppercase;
+
+            /* Hitbox & Jitter Fix */
             display: inline-block;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
-            will-change: transform; backface-visibility: hidden; transform: translateZ(0);
+            will-change: transform; 
+            backface-visibility: hidden; 
+            transform: translateZ(0);
         }
+
         .ntrxi-brand:hover {
             transform: scale(1.05) translateZ(0);
-            text-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent-glow);
+            text-shadow: 
+                0 0 15px var(--accent),
+                0 0 30px var(--accent),
+                0 0 60px var(--accent-glow);
         }
-        */
 
         .discord-btn {
             display: inline-flex; align-items: center; gap: 10px;
@@ -49,7 +63,7 @@
         /* CONTROLS */
         .controls-wrapper { 
             max-width: 1000px; 
-            margin: 40px auto 40px; /* Added top margin since banner is gone */
+            margin: 0 auto 40px; 
             text-align: center; 
         }
         .control-group { margin-bottom: 20px; }
@@ -64,7 +78,7 @@
         .sort-btn.active { background: var(--accent); color: white; border-color: var(--accent); font-weight: bold; box-shadow: 0 0 15px rgba(0, 168, 255, 0.3); }
 
         /* GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto 60px; }
         
         .host-card { 
             background: var(--card-bg); 
@@ -92,70 +106,40 @@
             padding: 4px 8px; border-radius: 4px; background: #2f3640; color: #dfe6e9;
         }
 
-        /* FOOTER */
-        .ntrxi-footer {
-            background: #050507;
-            border-top: 1px solid #1e272e;
-            padding: 60px 20px 20px;
-            margin-top: 80px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-section h4 {
-            color: var(--accent);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .footer-section p { color: #7f8fa6; font-size: 0.9rem; line-height: 1.6; }
-        .footer-logo { color: var(--accent); font-size: 2rem; font-weight: 900; margin: 0 0 10px 0; }
-        .footer-section ul { list-style: none; padding: 0; }
-        .footer-section ul li { margin-bottom: 12px; }
-
-        .footer-section ul li a {
-            color: #7f8fa6; text-decoration: none; transition: 0.3s; font-size: 0.9rem;
-        }
-        
-        .footer-section ul li a:hover { color: var(--accent); padding-left: 5px; }
-        
-        .footer-bottom {
-            text-align: center; margin-top: 60px; padding-top: 20px;
-            border-top: 1px solid #1e272e; color: #57606f; font-size: 0.8rem;
-        }
+        /* --- FOOTER STYLES SAVED IN MEMORY ---
+           (Commented out below in HTML)
+        */
     </style>
 </head>
 <body>
 
-<div class="controls-wrapper">
-    <div class="control-group">
-        <span class="label-text">Filter Category</span>
-        <div class="sort-container">
-            <button class="sort-btn active" onclick="filterType('all')">All Types</button>
-            <button class="sort-btn" onclick="filterType('web')">Web Hosting</button>
-            <button class="sort-btn" onclick="filterType('self')">Self-Hosting Mods</button>
+    <header>
+        <h1 class="ntrxi-brand">NTRXI</h1>
+        <p>Ultimate Free Hosting & Self-Host Index</p>
+        <a href="https://discord.com/invite/b67X2Gdkw7" target="_blank" class="discord-btn">Join Discord</a>
+    </header>
+
+    <div class="controls-wrapper">
+        <div class="control-group">
+            <span class="label-text">Filter Category</span>
+            <div class="sort-container">
+                <button class="sort-btn active" onclick="filterType('all')">All Types</button>
+                <button class="sort-btn" onclick="filterType('web')">Web Hosting</button>
+                <button class="sort-btn" onclick="filterType('self')">Self-Hosting Mods</button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <span class="label-text">Sort RAM & Performance</span>
+            <div class="sort-container">
+                <button class="sort-btn" onclick="sortData('ram-desc')">RAM (High to Low)</button>
+                <button class="sort-btn" onclick="sortData('ram-asc')">RAM (Low to High)</button>
+                <button class="sort-btn" onclick="sortData('name')">Alphabetical (A-Z)</button>
+            </div>
         </div>
     </div>
 
-    <div class="control-group">
-        <span class="label-text">Sort RAM & Performance</span>
-        <div class="sort-container">
-            <button class="sort-btn" onclick="sortData('ram-desc')">RAM (High to Low)</button>
-            <button class="sort-btn" onclick="sortData('ram-asc')">RAM (Low to High)</button>
-            <button class="sort-btn" onclick="sortData('name')">Alphabetical (A-Z)</button>
-        </div>
-    </div>
-</div>
-
-<div id="host-list" class="grid"></div>
+    <div id="host-list" class="grid"></div>
 
 <script>
 // --- PASTE YOUR HOSTING LIST HERE ---
@@ -332,7 +316,7 @@ const masterList = [
     { name: "Frp (Fast Reverse Proxy)", ram: 0.2, storage: "N/A", cpu: "High Speed Proxy", power: 5, type: "self", displayRam: "Proxy" }
 
 ];
-    
+
 let currentFilter = 'all';
 
 function render(data) {
@@ -382,32 +366,6 @@ function sortData(criteria) {
 window.onload = () => render(masterList);
 </script>
 
-<footer class="ntrxi-footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h2 class="footer-logo">NTRXI</h2>
-            <p>Indexing the best permanent free Minecraft hosting solutions since 2024.</p>
-        </div>
-        
-        <div class="footer-section">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</a></li>
-                <li><a href="https://discord.com/invite/b67X2Gdkw7" target="_blank">Discord Support</a></li>
-                <li><a href="https://minecraft.net" target="_blank">Minecraft Official</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-section">
-            <h4>Disclaimer</h4>
-            <p>NTRXI is not affiliated with Mojang AB or any hosting provider listed. Use these services at your own risk.</p>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        &copy; 2026 NTRXI Index. All rights reserved.
-    </div>
-</footer>
 </body>
 </html>
 
