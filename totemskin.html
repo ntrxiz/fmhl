@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTRXI - Skin Totem Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        :root { --accent: #55efc4; --bg: #0f0f0f; --card: #1e1e1e; --text: #e0e0e0; --danger: #e17055; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* --- HEADER --- */
+        header { text-align: center; padding: 40px 20px; }
+        .ntrxi-brand { 
+            color: var(--accent); font-size: 3.5rem; font-weight: 900; margin: 0; 
+            letter-spacing: -2px; text-transform: uppercase;
+        }
+        
+        .discord-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: #5865F2; color: white; padding: 12px 30px;
+            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.1rem;
+            transition: 0.3s; margin-top: 20px;
+        }
+        .discord-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4); }
+
+        /* --- TOOL --- */
+        .main-content { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        
+        .totem-tool-container {
+            background: #1e1e1e; border: 1px solid #333; border-radius: 20px; padding: 40px;
+            width: 100%; max-width: 480px; text-align: center; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        .tool-header h2 { color: var(--accent); margin-top: 0; }
+        .tool-header p { color: #888; font-size: 0.9rem; margin-bottom: 30px; }
+
+        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        .input-group input {
+            background: #2a2a2a; border: 1px solid #444; color: white; padding: 12px; 
+            border-radius: 8px; outline: none; width: 100%; font-size: 1rem;
+        }
+        .input-group input:focus { border-color: var(--accent); }
+        
+        .action-btn {
+            background: var(--accent); color: #000; border: none; padding: 0 25px; border-radius: 8px;
+            cursor: pointer; font-weight: bold; transition: 0.3s; white-space: nowrap;
+        }
+        .action-btn:hover { filter: brightness(1.1); }
+
+        .preview-area { 
+            margin-top: 30px; padding-top: 20px; border-top: 1px solid #333; 
+            display: flex; flex-direction: column; align-items: center;
+        }
+        
+        canvas {
+            width: 128px; height: 128px; image-rendering: pixelated; 
+            border: 2px dashed #444; background: #252525; margin: 15px 0;
+        }
+        
+        .download-btn {
+            background: var(--danger); color: white; border: none; padding: 15px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; transition: 0.2s; width: 100%; font-size: 1rem;
+        }
+        .download-btn:hover { background: #ff7675; transform: translateY(-2px); }
+        .download-btn.disabled { opacity: 0.5; pointer-events: none; background: #636e72; }
+        
+        #statusMsg { font-size: 0.9rem; margin-top: 15px; min-height: 20px; font-weight: 500; }
+        
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 20px; color: #555; font-size: 0.8rem; border-top: 1px solid #1a1a1a; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="ntrxi-brand">NTRXI</h1>
+    <a href="https://discord.com/invite/b67X2Gdkw7" target="_blank" class="discord-btn">Join Discord</a>
+</header>
+
+<div class="main-content">
+    <div class="totem-tool-container">
+        <div class="tool-header">
+            <h2>Totem Converter</h2>
+            <p>Turn any player skin into a Resource Pack.</p>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="skinInput" placeholder="Enter Username..." onkeypress="handleEnter(event)">
+            <button class="action-btn" onclick="generateTotem()">Generate</button>
+        </div>
+
+        <div class="preview-area">
+            <canvas id="totemCanvas" width="16" height="16"></canvas>
+            <button id="downloadPackBtn" class="download-btn disabled" onclick="downloadPack()">Download Pack (.zip)</button>
+        </div>
+        
+        <p id="statusMsg"></p>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 NTRXI Index.
+</footer>
+
+<script>
+function handleEnter(e) { if (e.key === 'Enter') generateTotem(); }
+
+function generateTotem() {
+    const username = document.getElementById('skinInput').value.trim();
+    const canvas = document.getElementById('totemCanvas');
+    const ctx = canvas.getContext('2d');
+    const status = document.getElementById('statusMsg');
+    const dlBtn = document.getElementById('downloadPackBtn');
+
+    if (!username) return;
+
+    status.textContent = "Fetching skin...";
+    status.style.color = "#aaa";
+    dlBtn.classList.add('disabled');
+    ctx.clearRect(0, 0, 16, 16);
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    
+    // CHANGED TO MC-HEADS (More reliable than Starlight)
+    img.src = `https://mc-heads.net/skin/${username}`;
+
+    img.onload = function() {
+        // --- TOTEM MAPPING LOGIC ---
+        // Head (8x8) -> Place at (4, 1)
+        ctx.drawImage(img, 8, 8, 8, 8, 4, 1, 8, 8);
+        ctx.drawImage(img, 40, 8, 8, 8, 4, 1, 8, 8); // Hat layer
+        
+        // Body (8x12 cropped to 6x5) -> Place at (5, 9)
+        ctx.drawImage(img, 21, 20, 6, 5, 5, 9, 6, 5);
+        ctx.drawImage(img, 21, 36, 6, 5, 5, 9, 6, 5); // Jacket layer
+        
+        // Arms (4x12 cropped to 3x4)
+        ctx.drawImage(img, 36, 52, 3, 4, 2, 9, 3, 4); // Left Arm
+        ctx.drawImage(img, 44, 20, 3, 4, 11, 9, 3, 4); // Right Arm
+        
+        // Legs (Tiny feet)
+        ctx.drawImage(img, 20, 52, 3, 2, 5, 14, 3, 2);
+        ctx.drawImage(img, 4, 20, 3, 2, 8, 14, 3, 2);
+
+        status.textContent = "Ready to download!";
+        status.style.color = "#55efc4";
+        dlBtn.classList.remove('disabled');
+    };
+
+    img.onerror = function() {
+        // Fallback to Minotar if MC-Heads fails
+        console.log("MC-Heads failed, trying Minotar...");
+        img.src = `https://minotar.net/skin/${username}`;
+        // If this second attempt fails, it will trigger another error event or just stop.
+        status.textContent = "Error: Invalid username or Skin API down.";
+        status.style.color = "#e17055";
+    };
+}
+
+async function downloadPack() {
+    const username = document.getElementById('skinInput').value.trim() || "Player";
+    const canvas = document.getElementById('totemCanvas');
+    const status = document.getElementById('statusMsg');
+
+    status.textContent = "Zipping...";
+    
+    const zip = new JSZip();
+
+    // Pack.mcmeta for 1.21
+    const mcmeta = {
+        "pack": {
+            "pack_format": 34,
+            "description": `NTRXI Totem for ${username}`
+        }
+    };
+    zip.file("pack.mcmeta", JSON.stringify(mcmeta, null, 4));
+
+    // Convert Canvas to Blob
+    const imageBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    
+    // Create File Structure
+    const imgFolder = zip.folder("assets").folder("minecraft").folder("textures").folder("item");
+    imgFolder.file("totem_of_undying.png", imageBlob);
+    zip.file("pack.png", imageBlob);
+
+    // Download
+    zip.generateAsync({type:"blob"}).then(function(content) {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(content);
+        a.download = `Totem_Pack_${username}.zip`;
+        a.click();
+        status.textContent = "Download started!";
+    });
+}
+</script>
+</body>
+</html>
