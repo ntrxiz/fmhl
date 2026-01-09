@@ -9,21 +9,29 @@
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
         header { text-align: center; padding: 40px 20px; }
         
-        /* BRANDING UPDATES */
+        /* --- BRANDING UPDATES (FIXED) --- */
         .ntrxi-brand { 
             color: var(--accent); 
             font-size: 4rem; 
             font-weight: 900; 
             margin: 0; 
             letter-spacing: -2px;
-            display: inline-block;
-            transition: all 0.4s ease-in-out; 
-            cursor: pointer;
+            cursor: default;
             text-transform: uppercase;
+
+            /* FIX 1: TIGHTEN HITBOX (Hugs text only) */
+            display: inline-block;
+
+            /* FIX 2: SMOOTH ANIMATION (GPU Acceleration) */
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
-        /* Subtler glow as requested */
+
+        /* Subtler glow + Pop without Jitter */
         .ntrxi-brand:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
             text-shadow: 0 0 8px rgba(85, 239, 196, 0.5), 0 0 15px rgba(85, 239, 196, 0.3);
         }
 
@@ -162,98 +170,191 @@
 <div id="host-list" class="grid"></div>
 
 <script>
+// --- PASTE YOUR HOSTING LIST HERE ---
 const masterList = [
+
     // --- WEB HOSTING (Category: web) ---
+
     { name: "FalixNodes", ram: 4.0, storage: "10 GB", cpu: "AMD Ryzen 9 9950X3D", power: 5, type: "web" },
+
     { name: "Tick Hosting", ram: 8.0, storage: "15 GB", cpu: "AMD EPYC 4585PX", power: 5, type: "web" },
+
     { name: "MagmaNode", ram: 2.5, storage: "5 GB", cpu: "AMD Ryzen 9 7950X3D", power: 5, type: "web" },
+
     { name: "MineStrator", ram: 4.0, storage: "4 GB", cpu: "AMD Ryzen 9 9900X", power: 5, type: "web" },
+
     { name: "Play Hosting", ram: 3.0, storage: "10 GB", cpu: "AMD Ryzen 7800X3D", power: 5, type: "web" },
+
     { name: "CloudCode", ram: 6.0, storage: "20 GB", cpu: "AMD Ryzen 9 7900X", power: 4, type: "web" },
+
     { name: "Oracle Cloud", ram: 24.0, storage: "200 GB", cpu: "ARM Ampere A1 (4 Core)", power: 4, type: "web" },
+
     { name: "Github Codespaces", ram: 16.0, storage: "32 GB", cpu: "Azure Standard VM", power: 3, type: "web" },
+
     { name: "Google Colab", ram: 12.0, storage: "100 GB", cpu: "Google Cloud E2", power: 3, type: "web" },
+
     { name: "OuiHeberg", ram: 8.0, storage: "2 GB", cpu: "Intel Xeon 2 vCores", power: 2, type: "web" },
+
     { name: "MooNodes", ram: 6.0, storage: "30 GB", cpu: "AMD Ryzen Shared", power: 3, type: "web" },
+
     { name: "Eternal Zero", ram: 6.0, storage: "20 GB", cpu: "AMD Ryzen 9 Series", power: 4, type: "web" },
+
     { name: "PloudOS", ram: 3.0, storage: "6 GB", cpu: "AMD EPYC Performance", power: 3, type: "web" },
+
     { name: "PowerupStack", ram: 3.0, storage: "4 GB", cpu: "Shared 2 vCPU", power: 3, type: "web" },
+
     { name: "Aternos", ram: 2.6, storage: "4 GB", cpu: "Shared Cloud CPU", power: 1, type: "web" },
+
     { name: "Minefort", ram: 2.0, storage: "Unlimited", cpu: "Shared Intel Xeon", power: 1, type: "web" },
+
     { name: "FreeMcServer.net", ram: 1.7, storage: "10 GB", cpu: "AMD Ryzen 7 PRO 8700GE", power: 3, type: "web" },
+
     { name: "Minehut", ram: 1.0, storage: "Unlimited", cpu: "AMD EPYC 7443P", power: 2, type: "web" },
+
     { name: "Hosting Mit Herz", ram: 4.0, storage: "30 GB", cpu: "Intel Xeon Gold", power: 2, type: "web" },
+
     { name: "Seedloaf", ram: 4.0, storage: "8 GB", cpu: "AMD Ryzen 9 5950X", power: 4, type: "web" },
+
     { name: "VibeGames", ram: 4.0, storage: "20 GB", cpu: "AMD Ryzen 9 7900", power: 4, type: "web" },
+
     { name: "HidenCloud", ram: 3.0, storage: "15 GB", cpu: "Ampere Altra ARM64", power: 3, type: "web" },
+
     { name: "GratisServer.nu", ram: 1.5, storage: "5 GB", cpu: "AMD Ryzen 9 7950X3D", power: 5, type: "web" },
+
     { name: "MineKeep", ram: 2.0, storage: "10 GB", cpu: "Shared Cloud VM", power: 2, type: "web" },
+
     { name: "AxentHost", ram: 2.0, storage: "5 GB", cpu: "DDR5 Shared Node", power: 2, type: "web" },
+
     { name: "BBN Hosting", ram: 2.0, storage: "2.5 GB", cpu: "Ryzen 9 7945HX", power: 4, type: "web" },
+
     { name: "SneakyHub", ram: 2.0, storage: "10 GB", cpu: "AMD Ryzen 9 5950X", power: 4, type: "web" },
+
     { name: "Optiklink", ram: 1.0, storage: "4 GB", cpu: "Intel i9-12900K", power: 4, type: "web" },
+
     { name: "Host2Play", ram: 3.0, storage: "2 GB", cpu: "Intel Core i9", power: 3, type: "web" },
+
     { name: "Galactiq", ram: 3.0, storage: "10 GB", cpu: "Intel Xeon", power: 1, type: "web" },
+
     { name: "Skynode", ram: 1.5, storage: "5 GB", cpu: "Intel Xeon Gold", power: 2, type: "web" },
+
     { name: "LokaHosting", ram: 2.0, storage: "10 GB", cpu: "Intel i7-6700K", power: 2, type: "web" },
+
     { name: "Server.pro", ram: 1.0, storage: "5 GB", cpu: "AMD EPYC 7351P", power: 2, type: "web" },
+
     { name: "Playtime Hosting", ram: 4.0, storage: "10 GB", cpu: "AMD Ryzen 9 5950X", power: 4, type: "web" },
+
     { name: "Blockhead Host", ram: 4.0, storage: "15 GB", cpu: "Intel i9-13900K", power: 5, type: "web" },
+
     { name: "Cozy MC", ram: 6.0, storage: "20 GB", cpu: "AMD Ryzen Shared", power: 3, type: "web" },
+
     { name: "Novacore", ram: 2.0, storage: "10 GB", cpu: "Shared Ryzen Node", power: 3, type: "web" },
+
     { name: "StormNodes", ram: 2.0, storage: "5 GB", cpu: "Ryzen 9 5950X", power: 4, type: "web" },
+
     { name: "MCServerHost (Villager)", ram: 3.0, storage: "10 GB", cpu: "Intel Multi-Core Standard", power: 2, type: "web" },
+
     { name: "CreeperCloud", ram: 2.0, storage: "2 GB", cpu: "AMD EPYC 7401P", power: 2, type: "web" },
+
     { name: "Nether.Host", ram: 2.0, storage: "10 GB", cpu: "AMD Ryzen 3 3300X", power: 2, type: "web" },
+
     { name: "SliceHosting", ram: 4.0, storage: "8 GB", cpu: "AMD Ryzen 9 3900", power: 4, type: "web" },
+
     { name: "FPS.ms", ram: 4.0, storage: "5 GB", cpu: "Intel i9-9900K", power: 4, type: "web" },
+
     { name: "ServerTux", ram: 1.0, storage: "30 GB", cpu: "AMD Ryzen 5950X", power: 4, type: "web" },
+
     { name: "DataHosting", ram: 1.0, storage: "1 GB", cpu: "Intel Xeon E5-2670", power: 1, type: "web" },
+
     { name: "ScarceHosting", ram: 1.5, storage: "2 GB", cpu: "Intel Shared", power: 1, type: "web" },
+
     { name: "EUGameHosting", ram: 2.0, storage: "Unlimited", cpu: "Intel i9-13900K", power: 5, type: "web" },
+
     { name: "Zoned.rip", ram: 4.0, storage: "10 GB", cpu: "Shared Cloud Node", power: 3, type: "web" },
+
     { name: "Attoric", ram: 1.0, storage: "5 GB", cpu: "AMD Ryzen 7000 Series", power: 4, type: "web" },
+
     { name: "Campfire", ram: 2.0, storage: "10 GB", cpu: "Intel i7-10700K", power: 3, type: "web" },
+
     { name: "BlastNodes", ram: 2.0, storage: "5 GB", cpu: "Intel Xeon E5-1650 v4", power: 2, type: "web" },
+
     { name: "Alysio", ram: 4.0, storage: "10 GB", cpu: "AMD Ryzen 9 5900X", power: 4, type: "web" },
+
     { name: "Sparked Host (Free)", ram: 1.0, storage: "5 GB NVMe", cpu: "AMD Ryzen 9 7900X", power: 4, type: "web" },
+
     { name: "PebbleHost (Free)", ram: 1.0, storage: "Unmetered", cpu: "Intel Xeon E-2186G", power: 3, type: "web" },
+
     { name: "HypeHost", ram: 2.0, storage: "10 GB", cpu: "AMD Ryzen 7 3700X", power: 3, type: "web" },
+
     { name: "VaporNodes", ram: 2.0, storage: "5 GB", cpu: "Intel i9-9900K", power: 4, type: "web" },
+
     { name: "OxygenNodes", ram: 3.0, storage: "8 GB", cpu: "AMD EPYC 7002", power: 3, type: "web" },
+
     { name: "SkateNode", ram: 1.5, storage: "5 GB", cpu: "Intel Xeon Gold", power: 2, type: "web" },
+
     { name: "VertexNodes", ram: 2.0, storage: "10 GB", cpu: "AMD Ryzen 9 3900X", power: 4, type: "web" },
+
     { name: "AriaNodes", ram: 2.0, storage: "5 GB", cpu: "Intel Xeon E5", power: 1, type: "web" },
 
+
+
     // --- SELF-HOSTING & TOOLS (Category: self) ---
+
     // Note: RAM is set to 999 so they appear at the top when sorting High -> Low RAM
+
     { name: "e4mc", ram: 999, storage: "Local", cpu: "User CPU", power: 5, type: "self", displayRam: "Your PC" },
+
     { name: "Essential Mod", ram: 999, storage: "Local", cpu: "User CPU", power: 5, type: "self", displayRam: "Your PC" },
+
     { name: "World Host", ram: 999, storage: "Local", cpu: "User CPU", power: 4, type: "self", displayRam: "Your PC" },
+
     { name: "Minekube Connect", ram: 999, storage: "Local", cpu: "User CPU", power: 5, type: "self", displayRam: "Your PC" },
+
     { name: "Luna", ram: 999, storage: "Local", cpu: "User CPU", power: 3, type: "self", displayRam: "Your PC" },
+
     { name: "Feather Launcher", ram: 999, storage: "Local", cpu: "User CPU", power: 4, type: "self", displayRam: "Your PC" },
+
     { name: "LabyMod Share", ram: 999, storage: "Local", cpu: "User CPU", power: 3, type: "self", displayRam: "Your PC" },
+
     { name: "Playit.gg", ram: 0.1, storage: "N/A", cpu: "Tunnel", power: 5, type: "self", displayRam: "Tunnel Only" },
+
     { name: "Pinggy", ram: 0.1, storage: "N/A", cpu: "TCP Tunnel", power: 4, type: "self", displayRam: "Tunnel Only" },
+
     { name: "Ngrok", ram: 0.1, storage: "N/A", cpu: "TCP Tunnel", power: 4, type: "self", displayRam: "Tunnel Only" },
+
     { name: "Portmap.io", ram: 0.1, storage: "N/A", cpu: "OpenVPN", power: 3, type: "self", displayRam: "Tunnel Only" },
+
     { name: "LocalXpose", ram: 0.1, storage: "N/A", cpu: "Reverse Proxy", power: 4, type: "self", displayRam: "Tunnel Only" },
+
     { name: "Tailscale", ram: 0.2, storage: "N/A", cpu: "P2P Mesh", power: 5, type: "self", displayRam: "Mesh Net" },
+
     { name: "ZeroTier One", ram: 0.2, storage: "N/A", cpu: "Virtual Eth", power: 5, type: "self", displayRam: "Mesh Net" },
+
     { name: "Radmin VPN", ram: 0.3, storage: "N/A", cpu: "Virtual LAN", power: 4, type: "self", displayRam: "Virtual LAN" },
+
     { name: "Hamachi", ram: 0.3, storage: "N/A", cpu: "Virtual LAN", power: 2, type: "self", displayRam: "Virtual LAN" },
+
     { name: "Nide (SELF HOSTING MOD)", ram: 999, storage: "Local", cpu: "User CPU", power: 4, type: "self", displayRam: "Your PC" },
+
     { name: "Gnome (SELF HOSTING MOD)", ram: 999, storage: "Local", cpu: "User CPU", power: 4, type: "self", displayRam: "Your PC" },
+
     { name: "Cloudflare Warp", ram: 0.1, storage: "N/A", cpu: "Tunnel", power: 5, type: "self", displayRam: "Tunnel" },
+
     { name: "Bore (Tunnel Tool)", ram: 0.1, storage: "N/A", cpu: "Rust Tunnel", power: 5, type: "self", displayRam: "Tunnel" },
+
     { name: "Frp (Fast Reverse Proxy)", ram: 0.2, storage: "N/A", cpu: "High Speed Proxy", power: 5, type: "self", displayRam: "Proxy" }
+
 ];
 
 let currentFilter = 'all';
 
 function render(data) {
     const list = document.getElementById("host-list");
+    // Added safety check for empty list
+    if (!data || data.length === 0) {
+        list.innerHTML = '<p style="text-align:center; width:100%;">List is empty. Please check code.</p>';
+        return;
+    }
+
     list.innerHTML = data
         .filter(h => currentFilter === 'all' || h.type === currentFilter)
         .map(h => `
@@ -295,7 +396,8 @@ function sortData(criteria) {
 
 window.onload = () => render(masterList);
 </script>
-    <footer class="ntrxi-footer">
+
+<footer class="ntrxi-footer">
     <div class="footer-content">
         <div class="footer-section">
             <h2 class="footer-logo">NTRXI</h2>
@@ -306,7 +408,7 @@ window.onload = () => render(masterList);
             <h4>Quick Links</h4>
             <ul>
                 <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</a></li>
-                <li><a href="https://discord.com/invite/b67X2Gdkw7" target="_blank">Discord Support</a></li>
+                <li><a href="https://discord.com/invite/b67X2Gdkw7/" target="_blank">Discord Support</a></li>
                 <li><a href="https://minecraft.net" target="_blank">Minecraft Official</a></li>
             </ul>
         </div>
